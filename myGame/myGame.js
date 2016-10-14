@@ -10,6 +10,8 @@ var cursors;
 var stars;
 var player;
 var platforms;
+var scoreText;
+var score;
 
 function preload() {
 
@@ -46,7 +48,7 @@ function create() {
     
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0;
-    player.body.gravity.y = 100;
+    player.body.gravity.y = 275;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -61,8 +63,9 @@ function create() {
         star.body.gravity.y = 100;
         star.body.bounce.y = 0.7 + Math.random() * 0.2;
     }
-
-
+    
+    scoreText = game.add.text(16, 16, 'score: 0', { fontSize: "32px", fill: '#000' });
+    score = 0;
 }
 
 function update() {
@@ -100,6 +103,17 @@ function update() {
     if (cursors.up.isDown && player.body.touching.down && hitPlatform) {
 
         player.body.velocity.y = -350;
+        
     }
+    
+        game.physics.arcade.overlap(player, stars, collectStar, null, this);
+        
+        function collectStar (player, star) {
+            star.kill();
+            score += 1
+            scoreText.text = 'score:' + score;
+            
+        }
+    
 
 }
