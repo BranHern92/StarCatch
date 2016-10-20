@@ -80,7 +80,7 @@ var timer = 0;
 
 function update() {
     timer++;
-    if (timer > 120) {
+    if (timer > 50) {
     
 timer = 0;
 
